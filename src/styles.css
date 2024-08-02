@@ -8,6 +8,11 @@ body {
     margin: 0;
 }
 
+.selected {
+    background-color: aqua;
+    color: #dc3545;
+}
+
 * {
     box-sizing: border-box;
 }

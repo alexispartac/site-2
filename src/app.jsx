@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 function Logo(){
     return (
@@ -5,20 +6,29 @@ function Logo(){
     );
 }
 
+function List({className, title, number}){
+    let rows = [];
+    let i = 1;
+    while(i <= number){
+        rows.push(
+            <li id={`${title} ${i}`} key={`${title} ${i}`}>{`${title} ${i}`}</li>
+        )
+        i++;
+    }
+    return (
+        <ul className={className}>
+            {rows}
+        </ul>
+    );
+}
+
+
 function Menu(){
+
     return ( 
         <ul className="menu-list"> 
             <li className="tooltip-menu"><a href="index.html" target="_top" className="tooltip-menu">Home <img id="drop-arrow" src="image/right-triangular-arrowhead.png" alt="fav" /> </a>
-                <ul className="tooltiptext-menu"> 
-                    <li>Demo Template 1</li>
-                    <li>Demo Template 2</li>
-                    <li>Demo Template 3</li>
-                    <li>Demo Template 4</li>
-                    <li>Demo Template 5</li>
-                    <li>Demo Template 6</li>
-                    <li>Demo Template 7</li>
-                    <li>Demo Template 8</li>
-                </ul>
+                   <List className={`tooltiptext-menu `} title={"Demo Template"} number={8}/>  
             </li>
             <li><a href="index.html" target="_blank">About</a></li>
             <li><a href="index.html" target="_blank">Features</a></li>
@@ -127,24 +137,35 @@ function Nav(){
     );
 }
 
+function Head(){
+
+    return (
+        <h1 style={{color:"white"}}> Customer Say About Us</h1>
+    );
+}
+
+
 function Header(){
+
     return(
         <div className="header">
-            <h1> Customer Say About Us</h1>
+            <Head />
             <a href="index.html" target="top" rel="noopener noreferrer"> Home </a> <p> `{'> >'}` Review</p>
         </div>
     );
 }
 
-function Paragraph(props){
+function Paragraph({selected, onClick, src}){
+
     return ( 
-        <div className="paragraph-1">
+        <div className={`paragraph-1 ${selected ? 'selected' : ''}` } onClick={onClick}>
+
                    <img src="image/icon.png" alt="icon" /> <p>Rapidiously develop user friendly growth strategies after extensive initiatives. 
                         Conveniently grow innovative benefits through fully tested deliverables. 
                         Rapidiously utilize focused platforms through end-to-end schemas
                     </p>
                     <div className="portrait-name">
-                        <span><img src={props.src} alt="img" /></span>
+                        <span><img src={src} alt="img" /></span>
                         <span className="cont">
                             <h3>Arabella Orin</h3><br/>
                             <p>AppCo</p>
@@ -155,15 +176,19 @@ function Paragraph(props){
 }
 
 function Content(){
+    let [selectedParagraph, setSelectedParagraph] = useState(false);
+
+
+
     return (
         <div className="content">
             <div className="content-in">
-                <Paragraph src="image/client-1.jpg"/>
-                <Paragraph src="image/client-2.jpg"/>
-                <Paragraph src="image/client-3.jpg"/>
-                <Paragraph src="image/client-4.jpg"/>
-                <Paragraph src="image/client-5.jpg"/>
-                <Paragraph src="image/client-1.jpg"/>
+                <Paragraph src="image/client-1.jpg" selected={selectedParagraph===1} onClick={(e) => setSelectedParagraph(1)}/>
+                <Paragraph src="image/client-2.jpg" selected={selectedParagraph===2} onClick={(e) => setSelectedParagraph(2)}/>
+                <Paragraph src="image/client-3.jpg" selected={selectedParagraph===3} onClick={(e) => setSelectedParagraph(3)}/>
+                <Paragraph src="image/client-4.jpg" selected={selectedParagraph===4} onClick={(e) => setSelectedParagraph(4)}/>
+                <Paragraph src="image/client-5.jpg" selected={selectedParagraph===5} onClick={(e) => setSelectedParagraph(5)}/>
+                <Paragraph src="image/client-1.jpg" selected={selectedParagraph===6} onClick={(e) => setSelectedParagraph(6)}/>
             </div>
         </div>
     );
@@ -242,3 +267,8 @@ export default function app(){
         </>
     );
 }
+
+
+// e.stopPropagation()oprește declanșarea gestionatorilor de evenimente atașați etichetelor de mai sus.
+
+// e.preventDefault() previne comportamentul implicit al browserului pentru puținele evenimente care îl au.
